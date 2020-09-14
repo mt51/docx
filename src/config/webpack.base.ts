@@ -1,5 +1,6 @@
 import sass from 'sass';
 import FriendlyErrorsPlugin from '@nuxt/friendly-errors-webpack-plugin';
+import { getBabelConfig } from './babel.config';
 import { WebpackConfig } from '../common/types';
 import { SCRIPT_EXTS, STYLE_EXTS} from '../common/constant';
 
@@ -31,8 +32,11 @@ export const baseConfig: WebpackConfig = {
     rules: [
       {
         test: /\.(js|ts|jsx|tsx)$/,
-        // exclude: /node_modules\/(?!(docx))/,
-        use: [cacheLoader, 'babel-loader'],
+        exclude: /node_modules\/(?!(docx))/,
+        use: [cacheLoader, {
+          loader: 'babel-loader',
+          options: getBabelConfig(),
+        }],
       },
       {
         test: /\.css$/,
