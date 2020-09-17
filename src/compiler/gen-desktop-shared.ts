@@ -2,7 +2,7 @@ import glob from 'fast-glob';
 import { join, parse } from 'path';
 import { existsSync, readdirSync } from 'fs-extra';
 import { SRC_DIR, DOCS_DIR, SITE_DESKTOP_SHARED_FILE , docxConfigsPath } from '../common/constant';
-import { pascalize, normalizePath, smartOutputFile } from '../utils';
+import { pascalize, normalizePath, smartOutputFile, removeExt } from '../utils';
 
 interface IDocItem {
   name: string,
@@ -24,7 +24,7 @@ function formatName(component: string, lang: string) {
 function resolveDocuments(components: string[]) {
   const docs: IDocItem[] = [];
 
-  const langs = Object.keys(configs);
+  const langs = Object.keys(configs.locales);
 
   langs.forEach(lang => {
     const fileName = `README.${lang}.md`;
@@ -61,10 +61,20 @@ function genExport(documents: IDocItem[]) {
 };`
 }
 
+function genImportConfig() {
+  return `import config from '${removeExt(docxConfigsPath)}';`;
+}
+
+function genExportConfig() {
+  return 'export { config };';
+}
+
 export function genSiteDesktopShared() {
   const dirs = readdirSync(SRC_DIR);
   const documents = resolveDocuments(dirs);
   const code = `${genImports(documents)}
+${genImportConfig()}
+${genExportConfig()}
 ${genExport(documents)}
 `;
   smartOutputFile(SITE_DESKTOP_SHARED_FILE, code);

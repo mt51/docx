@@ -1,4 +1,5 @@
 import sass from 'sass';
+import { join } from 'path';
 import FriendlyErrorsPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import { getBabelConfig } from './babel.config';
 import { WebpackConfig } from '../common/types';
@@ -11,14 +12,12 @@ const cacheLoader = {
   }
 }
 
-const cssLoaders = ['style-loader', 'css-loader', {
-  loader: 'postcss-loader',
-  options: {
-    config: {
-      path: './postcss.config.ts'
-    }
-  }
-}];
+const cssLoaders = ['style-loader', 'css-loader'];
+
+const babelLoader = {
+  loader: 'babel-loader',
+  options: getBabelConfig(),
+}
 
 const plugins = [new FriendlyErrorsPlugin()];
 
@@ -33,10 +32,7 @@ export const baseConfig: WebpackConfig = {
       {
         test: /\.(js|ts|jsx|tsx)$/,
         exclude: /node_modules\/(?!(docx))/,
-        use: [cacheLoader, {
-          loader: 'babel-loader',
-          options: getBabelConfig(),
-        }],
+        use: [cacheLoader, babelLoader],
       },
       {
         test: /\.css$/,
@@ -62,7 +58,7 @@ export const baseConfig: WebpackConfig = {
       },
       {
         test: /\.md$/,
-        use: [cacheLoader, '../loaders/markdown-loader']
+        use: [cacheLoader, babelLoader, join(__dirname, '../loaders/markdown-loader')]
       }
     ],
   },

@@ -5,13 +5,20 @@ import { WebpackConfig } from '../common/types';
 import { baseConfig } from './webpack.base';
 import { join } from 'path';
 import { GREEN } from '../common/constant';
-// import DocxSiteCompilerPlugin from '../compiler/docx-site-compiler-plugin';
+import DocxSiteCompilerPlugin from '../compiler/docx-site-compiler-plugin';
 
 export function getSiteDevBaseConfig(): WebpackConfig {
   return merge(baseConfig, {
     entry: {
-      'site-desktop': [join(__dirname, '../../sites/desktop/main.js')],
+      'site-desktop': [join(__dirname, '../../sites/desktop/main.tsx')],
       'site-simulator': [join(__dirname, '../../sites/simulator/main.js')]
+    },
+
+    resolve: {
+      alias: {
+        'site-desktop-shared': join(__dirname, '../../sites/configs/site-desktop-shared'),
+        'site-mobile-shared': join(__dirname, '../../sites/configs/site-mobile-shared')
+      }
     },
 
     devServer: {
@@ -41,7 +48,7 @@ export function getSiteDevBaseConfig(): WebpackConfig {
     },
 
     plugins: [
-      // new DocxSiteCompilerPlugin(),
+      new DocxSiteCompilerPlugin(),
       new webpackBar({
         name: 'docx',
         color: GREEN,
