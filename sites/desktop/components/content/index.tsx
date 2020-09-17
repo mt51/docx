@@ -1,21 +1,22 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import classnames from 'classnames';
 
 import PageHeader from '../header';
 import SideNav from '../side-nav';
-import { prefix } from '../../../../constants';
 import './styles.scss';
 
+interface IProps {
+  locale: string;
+  children: React.ReactChild;
+  onChange: (locale:string) => void;
+}
 
-function Layout({
-  i18n,
+const Layout: React.FC<IProps> = ({
+  locale,
   children,
-  version,
-  sideNavData,
-  sideNavRef,
-  location,
-}) {
+}) => {
+  const location = useLocation();
   const { pathname } = location;
   const withSimulator = true;
 
@@ -42,13 +43,17 @@ function Layout({
       setInnerHeight(window.innerHeight);
     });
   }, [])
+
+  const cls = React.useMemo(() => {
+    return classnames({
+      'van-doc-nav-fixed': isFixed,
+    })
+  }, [isFixed])
   
   return (
     <div className="van-doc">
-      <PageHeader version={version} i18n={i18n} sideNavData={sideNavData} />
-      <SideNav data={sideNavData} i18n={i18n} ref={sideNavRef} className={classnames({
-        'van-doc-nav-fixed': isFixed,
-      })}/>
+      <PageHeader locale={locale} />
+      <SideNav locale={locale} className={cls}/>
       <div className={classnames('van-doc-container van-doc-row', {
         'van-doc-container--with-simulator': withSimulator,
       })}>
@@ -58,11 +63,11 @@ function Layout({
         {withSimulator && <div className={classnames('van-doc-simulator', {
           'van-doc-simulator-fixed': isFixed
         })}>
-          <iframe ref={iframeRef} src={`${prefix}simulator.html#${pathname}`} style={simulatorStyles} frameBorder="0" ></iframe>
+          <iframe ref={iframeRef} src={`simulator.html#${pathname}`} style={simulatorStyles} frameBorder="0" ></iframe>
         </div>}
       </div>
     </div>
   );
 }
 
-export default withRouter(Layout);
+export default Layout
