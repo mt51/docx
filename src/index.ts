@@ -5,10 +5,14 @@ import packageJson from '../package.json';
 
 import { dev } from './command/dev';
 
+import { build } from './command/build';
+
 version(`docx ${packageJson.version}`);
 
 process.env.DOCX_VERSION = packageJson.version;
 
 command('dev').description('Run webpack dev server').action(dev);
+
+command('build').description('Compile site in production mode').action(build);
 
 parse();

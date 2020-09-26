@@ -15,5 +15,8 @@ export const SITE_DESKTOP_SHARED_FILE = join(__dirname, '../../sites/configs/sit
 export const siteConfigOutPath = join(cwdPath, './dist');
 export const DOCS_DIR = join(cwdPath, './docs')
 export const SRC_DIR = join(cwdPath, './src/components');
+export const SITE_DIST_DIR = join(cwdPath, './dist');
 
 export const docxConfigsPath = join(cwdPath, './docx.config.js');
+
+export const packageJsonPath = join(cwdPath, './package.json');

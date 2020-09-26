@@ -2,9 +2,25 @@ import merge from 'webpack-merge';
 import { WebpackConfig } from '../common/types';
 import { baseConfig } from './webpack.base';
 import { join } from 'path';
+import { SITE_DIST_DIR } from '../common/constant';
+import { getDocxConfig } from '../common';
+import { get } from 'lodash';
 
-export function getSiteDevConfig(): WebpackConfig {
+
+const docxConfig = getDocxConfig();
+
+const outputPath = get(docxConfig, 'build.site.outputDir', SITE_DIST_DIR);
+
+console.log(outputPath);
+
+export function getSiteProdConfig(): WebpackConfig {
   return merge(baseConfig, {
+    mode: 'production',
+    stats: 'none',
+    performance: {
+      maxAssetSize: 5 * 1024 * 1024,
+      maxEntrypointSize: 5 * 1024 * 1024
+    },
     entry: {
       'site-desktop': [join(__dirname, '../../sites/desktop/main.tsx')],
       'site-simulator': [join(__dirname, '../../sites/simulator/main.js')]
@@ -17,18 +33,10 @@ export function getSiteDevConfig(): WebpackConfig {
       }
     },
 
-    devServer: {
-      port: 8080,
-      quiet: true,
-      host: '0.0.0.0',
-      stats: 'errors-only',
-      publicPath: '/',
-      disableHostCheck: true,
-    },
-
     output: {
+      publicPath: '/',
       chunkFilename: '[name].js',
-      path: join(__dirname, '../../dist')
+      path: outputPath
     },
     optimization: {
       splitChunks: {

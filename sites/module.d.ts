@@ -27,5 +27,6 @@ interface IDocxConfig {
 
 
 declare module 'site-desktop-shared' {
-  const config:IDocxConfig;
+  const config: IDocxConfig;
+  const version: string;
 }

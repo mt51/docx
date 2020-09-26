@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import SearchBox from '../search-box';
-import { config } from 'site-desktop-shared';
+// import SearchBox from '../search-box';
+import { config, version } from 'site-desktop-shared';
 
 import './style.scss';
 
@@ -11,6 +11,11 @@ const Header: React.FC<{locale: string}> = ({ locale }) => {
   const { logo, title, locales } = config;
 
   const { nav, text: localeText } = locales[locale];
+
+  const localesSelectList = Object.keys(locales).filter(key => key !== locale).map(key => ({
+    path: key,
+    localeText: locales[locale].text,
+  }))
 
   const toggle = React.useCallback(() => {
     const { replace } = history;
@@ -34,34 +39,26 @@ const Header: React.FC<{locale: string}> = ({ locale }) => {
             />
             <span>{title}</span>
           </a>
-          <SearchBox locale={locale} />
           <ul className="van-doc-header__top-nav">
             {
-              nav.logoLink.map(item => (
-                <li className="van-doc-header__top-nav-item" key={item.url}>
-                  <a className="van-doc-header__logo-link" target="_blank" href={item.url}>
-                    <img src={item.image} />
-                  </a>
-                </li>
-                )
-              )
+               version && <li className="van-doc-header__top-nav-item">
+               <span
+                 className="van-doc-header__cube van-doc-header__version"
+               >
+                 { version }
+               </span>
+             </li>
             }
-
-            {/* <li ref="version" v-if="versions" className="van-doc-header__top-nav-item">
-              <span
-                className="van-doc-header__cube van-doc-header__version"
-              >
-                { versions[0] }
-              </span>
-            </li> */}
-            <li className="van-doc-header__top-nav-item">
-              <a
-                className="van-doc-header__cube"
-                href="langLink"
-              >
-                {localeText}
-              </a>
-            </li>
+            {
+              localesSelectList.length > 0 && <li className="van-doc-header__top-nav-item">
+                <a
+                  className="van-doc-header__cube"
+                  href={localesSelectList[0].path}
+                >
+                  {localesSelectList[0].localeText}
+                </a>
+              </li>
+            }
           </ul>
         </div>
       </div>

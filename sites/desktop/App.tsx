@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-// import ScrollToTop from './components/scroll-to-top';
+import ScrollToTop from './components/scroll-to-top';
 // import { version as pkgVersion } from '../../configs/doc.config';
 // import navConfig from '../../configs/nav.config';
 // import { prefix } from '../../constants';
@@ -23,16 +23,17 @@ export default function App() {
     setLocale(locale);
   }, []);
 
+
   return <Router>
     <DocContent locale={locale} onChange={changeLocale}>
-      {/* <ScrollToTop>
+      <ScrollToTop>
         <Switch>
           {
             routes.map(item => <Route path={item.path} component={item.component} key={item.name} />)
           }
-          <Redirect from="/*" to={`${i18n}/quickstart`} />
+          <Redirect from="/*" to={`/${locale}/quickstart`} />
         </Switch>
-      </ScrollToTop> */}
+      </ScrollToTop>
     </DocContent>
   </Router>
 }

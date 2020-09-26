@@ -1,7 +1,7 @@
 import glob from 'fast-glob';
 import { join, parse } from 'path';
 import { existsSync, readdirSync } from 'fs-extra';
-import { SRC_DIR, DOCS_DIR, SITE_DESKTOP_SHARED_FILE , docxConfigsPath } from '../common/constant';
+import { SRC_DIR, DOCS_DIR, SITE_DESKTOP_SHARED_FILE , docxConfigsPath, packageJsonPath } from '../common/constant';
 import { pascalize, normalizePath, smartOutputFile, removeExt } from '../utils';
 
 interface IDocItem {
@@ -10,6 +10,9 @@ interface IDocItem {
 }
 
 const configs = require(docxConfigsPath);
+const packageJson = require(packageJsonPath);
+
+const { version } = packageJson;
 
 function formatName(component: string, lang: string) {
   component = pascalize(component);
@@ -36,6 +39,8 @@ function resolveDocuments(components: string[]) {
     })
     
   })
+
+  console.log(glob.sync(normalizePath(join(DOCS_DIR, '**/*.md'))));
 
   const staticDocs = glob.sync(normalizePath(join(DOCS_DIR, '**/*.md'))).map(p => {
     const pairs = parse(p).name.split('.');
@@ -69,6 +74,10 @@ function genExportConfig() {
   return 'export { config };';
 }
 
+function genExportVersion() {
+  return `export const version = '${version}';`;
+}
+
 export function genSiteDesktopShared() {
   const dirs = readdirSync(SRC_DIR);
   const documents = resolveDocuments(dirs);
@@ -76,6 +85,7 @@ export function genSiteDesktopShared() {
 ${genImportConfig()}
 ${genExportConfig()}
 ${genExport(documents)}
+${genExportVersion()}
 `;
   smartOutputFile(SITE_DESKTOP_SHARED_FILE, code);
 }

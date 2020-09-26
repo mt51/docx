@@ -1,10 +1,13 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import classnames from 'classnames';
-
 import PageHeader from '../header';
 import SideNav from '../side-nav';
+import { config } from 'site-desktop-shared';
+
 import './styles.scss';
+
+const { showSimulator } = config;
 
 interface IProps {
   locale: string;
@@ -18,7 +21,7 @@ const Layout: React.FC<IProps> = ({
 }) => {
   const location = useLocation();
   const { pathname } = location;
-  const withSimulator = true;
+  const withSimulator = !!showSimulator;
 
   const [ innerHeight, setInnerHeight ] = React.useState(window.innerHeight);
   const [ scrollY, setScrollY ] = React.useState(window.scrollY);

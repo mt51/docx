@@ -3,6 +3,7 @@ import WebpackDevServer from 'webpack-dev-server';
 import { getPort } from 'portfinder';
 import { logBanner } from '../utils/logger';
 import { getSiteDevConfig } from '../config/webpack.site.dev';
+import { getSiteProdConfig } from '../config/webpack.site.prod';
 
 function runDevServer(port: number, config: ReturnType<typeof getSiteDevConfig>) {
 
@@ -31,10 +32,23 @@ function watch() {
   })
 }
 
+function build() {
+  return new Promise((resolve, reject) => {
+    const config = getSiteProdConfig();
+    webpack(config, (err, stats) => {
+      if (err || stats.hasErrors()) {
+        reject();
+      } else {
+        resolve();
+      }
+    });
+  })
+}
+
 
 export async function compileSite(production = false) {
   if (production) {
-
+    await build();
   } else {
     watch();
   }

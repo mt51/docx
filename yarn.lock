@@ -1175,6 +1175,11 @@
     "@types/node" "*"
     "@types/webpack" "*"
 
+"@types/lodash@^4.14.161":
+  version "4.14.161"
+  resolved "http://registry.npm.qima-inc.com/@types/lodash/download/@types/lodash-4.14.161.tgz#a21ca0777dabc6e4f44f3d07f37b765f54188b18"
+  integrity sha1-ohygd32rxuT0Tz0H83t2X1QYixg=
+
 "@types/markdown-it-anchor@^4.0.4":
   version "4.0.4"
   resolved "http://registry.npm.qima-inc.com/@types/markdown-it-anchor/download/@types/markdown-it-anchor-4.0.4.tgz#f36b67608d238d15024fb6508efd7ad3990209f6"
@@ -4099,7 +4104,7 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
-lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19:
+lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
   version "4.17.20"
   resolved "http://registry.npm.qima-inc.com/lodash/download/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha1-tEqbYpe8tpjxxRo1RaKzs2jVnFI=
