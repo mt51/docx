@@ -1,7 +1,7 @@
 {
   "name": "docx",
   "version": "0.0.1",
-  "description": "react 文档生成工具",
+  "description": "文档网站生成工具",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
@@ -9,12 +9,21 @@
   },
   "author": "liuziyang",
   "license": "MIT",
-  "private": true,
   "homepage": "https://mt51.github.io/docx",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "release": "tsc && release-it"
   },
+  "files": [
+    "lib",
+    "sites"
+  ],
+  "keywords": [
+    "docx-cli",
+    "docs",
+    "components"
+  ],
   "devDependencies": {
     "@types/babel__core": "^7.1.9",
     "@types/boxen": "^3.0.1",
@@ -32,6 +41,7 @@
     "@types/transliteration": "^1.6.6",
     "@types/webpack": "^4.41.22",
     "@types/webpack-dev-server": "^3.11.0",
+    "release-it": "^14.0.3",
     "typescript": "^4.0.2"
   },
   "dependencies": {
@@ -83,5 +93,10 @@
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.1.4",
     "webpackbar": "^4.0.0"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    }
   }
 }
