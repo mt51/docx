@@ -1,11 +1,11 @@
 {
-  "name": "docx",
+  "name": "docx-cli",
   "version": "0.0.1",
   "description": "文档网站生成工具",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
-    "docx": "./lib/index.js"
+    "docx-cli": "./lib/index.js"
   },
   "author": "liuziyang",
   "license": "MIT",
@@ -21,7 +21,7 @@
   ],
   "keywords": [
     "docx-cli",
-    "docs",
+    "document",
     "components"
   ],
   "devDependencies": {
