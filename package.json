@@ -10,15 +10,16 @@
   "author": "liuziyang",
   "license": "MIT",
   "private": true,
+  "homepage": "https://mt51.github.io/docx",
   "scripts": {
     "dev": "tsc --watch",
-    "build": "tsc",
-    "webpack": "webpack-dev-server --config ./lib/config/webpack.site.dev.js"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.9",
     "@types/boxen": "^3.0.1",
     "@types/fs-extra": "^9.0.1",
+    "@types/gh-pages": "^3.0.0",
     "@types/highlight.js": "^9.12.4",
     "@types/loader-utils": "^2.0.1",
     "@types/lodash": "^4.14.161",
@@ -60,6 +61,7 @@
     "front-matter": "^4.0.2",
     "fs-extra": "^9.0.1",
     "fuse.js": "^6.4.1",
+    "gh-pages": "^3.1.0",
     "highlight.js": "^10.2.0",
     "html-webpack-plugin": "^4.4.1",
     "less-loader": "^7.0.1",
