@@ -1,0 +1,6 @@
+{
+  "name": "docx",
+  "version": "0.0.1",
+  "description": "react 文档生成工具",
+  "main": "lib/index.js"
+}
