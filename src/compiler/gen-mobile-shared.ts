@@ -65,7 +65,12 @@ function genCode(components: string[]) {
 }
 
 export function genSiteMobileShared() {
-  const dirs = readdirSync(SRC_DIR);
+  let dirs:string[] = [];
+  try {
+    dirs = readdirSync(SRC_DIR);
+  } catch(e) {
+    console.warn(e);
+  }
   const code = genCode(dirs);
 
   smartOutputFile(SITE_MOBILE_SHARED_FILE, code);

@@ -23,6 +23,7 @@ export default function App() {
     setLocale(locale);
   }, []);
 
+  const defaultRouterPath = routes[0]?.path;
 
   return <Router>
     <DocContent locale={locale} onChange={changeLocale}>
@@ -31,7 +32,7 @@ export default function App() {
           {
             routes.map(item => <Route path={item.path} component={item.component} key={item.name} />)
           }
-          <Redirect from="/*" to={`/${locale}/quickstart`} />
+          { defaultRouterPath && <Redirect from="/*" to={`${defaultRouterPath}`} />}
         </Switch>
       </ScrollToTop>
     </DocContent>

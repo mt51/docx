@@ -40,8 +40,6 @@ function resolveDocuments(components: string[]) {
     
   })
 
-  console.log(glob.sync(normalizePath(join(DOCS_DIR, '**/*.md'))));
-
   const staticDocs = glob.sync(normalizePath(join(DOCS_DIR, '**/*.md'))).map(p => {
     const pairs = parse(p).name.split('.');
     return {
@@ -79,7 +77,12 @@ function genExportVersion() {
 }
 
 export function genSiteDesktopShared() {
-  const dirs = readdirSync(SRC_DIR);
+  let dirs: string[] = [];
+  try {
+    dirs = readdirSync(SRC_DIR);
+  } catch(e) {
+    // console.warn(e);
+  }
   const documents = resolveDocuments(dirs);
   const code = `${genImports(documents)}
 ${genImportConfig()}

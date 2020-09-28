@@ -9,9 +9,7 @@ import { get } from 'lodash';
 
 const docxConfig = getDocxConfig();
 
-const outputPath = get(docxConfig, 'build.site.outputDir', SITE_DIST_DIR);
-
-console.log(outputPath);
+export const outputPath = get(docxConfig, 'outputDir', SITE_DIST_DIR);
 
 export function getSiteProdConfig(): WebpackConfig {
   return merge(baseConfig, {
